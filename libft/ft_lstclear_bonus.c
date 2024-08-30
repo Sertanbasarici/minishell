@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2024/02/18 16:27:36 by sebasari          #+#    #+#             */
+/*   Updated: 2024/02/18 17:31:17 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char	*input;
+	t_list	*tmp;
+	t_list	*tmp1;
 
-	while (1) 
+	if (!lst || !del || !*lst)
+		return ;
+	tmp = *lst;
+	tmp1 = *lst;
+	while (tmp)
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		tmp1 = tmp1 -> next;
+		ft_lstdelone(tmp, del);
+		tmp = tmp1;
 	}
-	return 0;
 }

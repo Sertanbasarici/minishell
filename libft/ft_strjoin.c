@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/14 17:03:00 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/20 17:29:53 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*input;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	while (1) 
+	i = ft_strlen((char *)s1);
+	j = ft_strlen((char *)s2);
+	str = malloc(i + j + 1);
+	if (!str)
+		return (0);
+	i = 0;
+	j = 0;
+	while (s1[i])
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		str[i] = s1[i];
+		i++;
 	}
-	return 0;
+	while (s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }

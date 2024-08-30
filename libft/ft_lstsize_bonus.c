@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2024/02/18 14:13:51 by sebasari          #+#    #+#             */
+/*   Updated: 2024/02/18 14:52:24 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+int	ft_lstsize(t_list *lst)
 {
-	char	*input;
+	int		i;
+	t_list	*tmp;
 
-	while (1) 
+	tmp = lst;
+	i = 0;
+	while (tmp != NULL)
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		i++;
+		tmp = tmp -> next;
 	}
-	return 0;
+	return (i);
 }

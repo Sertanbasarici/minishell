@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/10 20:46:25 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/27 12:15:58 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*input;
+	void			*ptr;
+	unsigned char	*ptrchr;
+	size_t			i;
 
-	while (1) 
+	i = 0;
+	ptr = malloc(nmemb * size);
+	ptrchr = ptr;
+	if (ptr == NULL)
+		return (ptr);
+	while (size * nmemb > i)
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		ptrchr[i] = 0;
+		i++;
 	}
-	return 0;
+	return (ptr);
 }

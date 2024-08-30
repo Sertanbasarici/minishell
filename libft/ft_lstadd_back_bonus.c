@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2024/02/18 15:19:50 by sebasari          #+#    #+#             */
+/*   Updated: 2024/02/18 16:06:33 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	*input;
+	t_list	*tmp;
 
-	while (1) 
+	if (!lst || !new)
+		return ;
+	tmp = *lst;
+	if (!tmp)
+		tmp = new;
+	else
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		while (tmp -> next != NULL)
+			tmp = tmp -> next;
+		new -> next = tmp -> next;
+		tmp -> next = new;
 	}
-	return 0;
 }

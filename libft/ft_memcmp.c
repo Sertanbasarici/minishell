@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/14 12:49:57 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/20 19:48:12 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+int	ft_memcmp(void *s1, void *s2, size_t n)
 {
-	char	*input;
+	size_t				i;
+	const unsigned char	*s1a;
+	const unsigned char	*s2a;
 
-	while (1) 
+	i = 0;
+	s1a = (const unsigned char *)s1;
+	s2a = (const unsigned char *)s2;
+	while (i < n)
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		if (s1a[i] != s2a[i])
+			return (s1a[i] - s2a[i]);
+		i++;
 	}
-	return 0;
+	return (0);
 }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/20 17:26:11 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/20 17:27:18 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+char	*ft_strchr(char *s, int c)
 {
-	char	*input;
-
-	while (1) 
+	while ((char)c != *s)
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		if (!*s)
+			return (0);
+		s++;
 	}
-	return 0;
+	return ((char *)s);
 }

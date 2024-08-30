@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/09 21:20:18 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/20 17:59:13 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+int	ft_tolower(int c)
 {
-	char	*input;
-
-	while (1) 
+	if (c >= 'A' && c <= 'Z')
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		c = c + 32;
 	}
-	return 0;
+	return (c);
 }

@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/14 13:54:51 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/21 14:05:12 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	char	*input;
+	size_t	i;
+	size_t	j;
 
-	while (1) 
+	if (!*little)
+		return ((char *)(big));
+	i = 0;
+	while (i < len && big[i])
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		j = 0;
+		while (big[i + j] && little[j]
+			&& little[j] == big[i + j] && len > (i + j))
+			j++;
+		if ((little[j] == '\0'))
+			return ((char *)(big + i));
+		i++;
 	}
-	return 0;
+	return (0);
 }

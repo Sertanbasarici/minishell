@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/16 20:04:24 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/27 14:44:48 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*input;
+	unsigned int	i;
+	unsigned int	length;
+	char			*res;
 
-	while (1) 
+	if (!s)
+		return (NULL);
+	length = (int)ft_strlen((char *)s);
+	res = malloc(length * sizeof(char) + 1);
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (i < length)
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		res[i] = (*f)(i, s[i]);
+		i++;
 	}
-	return 0;
+	res[i] = '\0';
+	return (res);
 }

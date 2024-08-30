@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Created: 2023/10/13 15:20:48 by sebasari          #+#    #+#             */
+/*   Updated: 2023/10/21 15:22:02 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+void	ft_bzero(void *s, size_t n)
 {
-	char	*input;
+	unsigned char	*str;
+	size_t			i;
 
-	while (1) 
+	str = s;
+	i = 0;
+	while (i < n)
 	{
-		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		str[i] = 0;
+		i++;
 	}
-	return 0;
 }
