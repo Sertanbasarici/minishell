@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:07:13 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/29 16:41:32 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:59:08 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void		ft_error();
 void		ft_lstprint(t_mini *q_nodes);
 void		ft_lstprint_s(t_special *special);
 void		ft_lstprint_w(t_white *white);
-
+char		*ft_replace_hashtag(char **str);
+int			ft_get_size_double_point(char **str);
+void		ft_split_free(char **str);
 
 int			special_type(char *input, int i);
 t_special	*ft_find_the_type(char *input, int i, t_special *special);
@@ -73,5 +75,4 @@ t_special	*ft_get_redi_append(t_special *special);
 
 int			ft_is_whitespace(char c);
 t_white		*ft_white_space(char *input, int i, t_white *white);
-int			ft_find_the_charecter(char *input, int i, int start);
 #endif

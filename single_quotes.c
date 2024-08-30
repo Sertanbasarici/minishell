@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:05:34 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/19 16:35:54 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:38:10 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	ft_quotes_num(char *input)
 {
 	int	i;
 
+	i = 0;
 	while (input[i])
 	{
 		if (input[i] == '\'' || input[i] == '\"')

@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:04:05 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/29 16:43:46 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:10:13 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,23 @@ int	parse_init(char *input)
 	t_mini		*each_nodes;
 	t_special	*special;
 	t_white		*white;
+	char		**str;
+
 	i = 0;
 	input = ft_strtrim(input, " ");
-
+	str = ft_split(input, ' ');
+	input = ft_replace_hashtag(str);
+	ft_split_free(str);
+	printf("%s \n", input);
 	white = malloc(sizeof(t_white));
 	special = malloc(sizeof(t_special));
 	each_nodes = malloc(sizeof(t_mini));
-	while (input[i] != '\0')
+	while (input[i])
 	{
 		if (special_type(input, i))
 			special = ft_find_the_type(input, i, special);
 		if (ft_is_whitespace(input[i]))
-			white = ft_white_space(input, i, white);
+			ft_white_space(input, i, white);
 		if (ft_is_quotes_there_index(input[i]))
 			each_nodes = add_q_to_nodes(&i, input, each_nodes);
 		i++;
