@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_1.c                                        :+:      :+:    :+:   */
+/*   parsing_special.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:07:59 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/29 14:27:53 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:52:30 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	special_type(char *input, int i)
+int	ft_special_type(char *input, int i)
 {
 	if (input[i] == '<' || input[i] == '>' || input[i] == '|')
 	{
@@ -42,13 +42,13 @@ t_special	*ft_find_the_type(char *input, int i, t_special *special)
 t_special	*ft_get_redi_in(t_special *special, char *input, int i)
 {
 	char	*str;
+	t_list	*new;
 
 	str = ft_substr(input, i, 1);
-	special->nodes_s = ft_lstnew(str);
-	if (special->nodes_s->next != NULL)
-		ft_lstadd_front(&special->nodes_s, special->nodes_s);
-	special->nodes_s->content = malloc(sizeof(char *));
-	special->nodes_s->content = str;
+	new = ft_lstnew(str);
+	ft_lstadd_front(&special->nodes_s, new);
+	special->nodes_s->content = malloc(sizeof(char) * 2);
+	ft_strlcpy(special->nodes_s->content, str, 2);
 	ft_lstprint_s(special);
 	return (special);
 }
@@ -56,13 +56,13 @@ t_special	*ft_get_redi_in(t_special *special, char *input, int i)
 t_special	*ft_get_redi_out(t_special *special, char *input, int i)
 {
 	char	*str;
+	t_list	*new;
 
 	str = ft_substr(input, i, 1);
-	special->nodes_s = ft_lstnew(str);
-	if (special->nodes_s->next != NULL)
-		ft_lstadd_front(&special->nodes_s, special->nodes_s);
-	special->nodes_s->content = malloc(sizeof(char *));
-	special->nodes_s->content = str;
+	new = ft_lstnew(str);
+	ft_lstadd_front(&special->nodes_s, new);
+	special->nodes_s->content = malloc(sizeof(char) * 2);
+	ft_strlcpy(special->nodes_s->content, str, 2);
 	ft_lstprint_s(special);
 	return (special);
 }
@@ -70,13 +70,13 @@ t_special	*ft_get_redi_out(t_special *special, char *input, int i)
 t_special	*ft_get_pipe(t_special *special, char *input, int i)
 {
 	char *str;
+	t_list	*new;
 
 	str = ft_substr(input, i, 1);
-	special->nodes_s = ft_lstnew(str);
-	if (special->nodes_s->next != NULL)
-		ft_lstadd_front(&special->nodes_s, special->nodes_s);
-	special->nodes_s->content = malloc(sizeof(char *));
-	special->nodes_s->content = str;
+	new = ft_lstnew(str);
+	ft_lstadd_front(&special->nodes_s, new);
+	special->nodes_s->content = malloc(sizeof(char) * 2);
+	ft_strlcpy(special->nodes_s->content, str, 2);
 	ft_lstprint_s(special);
 	return (special);
 }

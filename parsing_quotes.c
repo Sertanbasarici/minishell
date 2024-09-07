@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_0.c                                        :+:      :+:    :+:   */
+/*   parsing_quotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 15:04:05 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/30 21:10:13 by sebasari         ###   ########.fr       */
+/*   Created: 2024/09/02 13:44:46 by sebasari          #+#    #+#             */
+/*   Updated: 2024/09/06 16:43:58 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,60 +36,36 @@ int	ft_find_next_q(int start, char *input)
 	return (len);
 }
 
-t_mini	*add_q_to_nodes(int *index, char *input, t_mini *q_nodes)
+t_quote	*add_q_to_nodes(int *index, char *input, t_quote *quotes)
 {
-	int		len;
-	char	*str;
+	int			len;
+	char		*str;
+	t_list		*new;
 
 	len = ft_find_next_q(*index, input);
 	str = ft_substr(input, *index + 1, len);
-	q_nodes->nodes_q = ft_lstnew(str);
-	if (q_nodes->nodes_q->next != NULL)
-		ft_lstadd_front(&q_nodes->nodes_q, q_nodes->nodes_q);
-	q_nodes->nodes_q->content = malloc(sizeof(char *));
-	q_nodes->nodes_q->content = str;
+	new = ft_lstnew(str);
+	ft_lstadd_front(&quotes->nodes_q, new);
+	quotes->nodes_q->content = malloc((ft_strlen(str) + 1) * sizeof(char));
+	ft_strlcpy(quotes->nodes_q->content, str, len + 1);
 	*index += len + 1;
-	ft_lstprint(q_nodes);
-	return (q_nodes);
+	// ft_lstprint(quotes);
+	free(str);
+	return (quotes);
 }
 
 int	ft_is_quotes_there_index(char c)
 {
-	if (c == '\0')
+	
+	if (c == '\0') {
+		printf("%c \n", c);
 		return (0);
-	if (c == '\'')
+	}
+	if (c == '\''){
+		printf("%c \n", c);
 		return (1);
+	}
 	else if (c == '\"')
 		return (1);
-	return (0);
-}
-
-int	parse_init(char *input)
-{
-	int			i;
-	t_mini		*each_nodes;
-	t_special	*special;
-	t_white		*white;
-	char		**str;
-
-	i = 0;
-	input = ft_strtrim(input, " ");
-	str = ft_split(input, ' ');
-	input = ft_replace_hashtag(str);
-	ft_split_free(str);
-	printf("%s \n", input);
-	white = malloc(sizeof(t_white));
-	special = malloc(sizeof(t_special));
-	each_nodes = malloc(sizeof(t_mini));
-	while (input[i])
-	{
-		if (special_type(input, i))
-			special = ft_find_the_type(input, i, special);
-		if (ft_is_whitespace(input[i]))
-			ft_white_space(input, i, white);
-		if (ft_is_quotes_there_index(input[i]))
-			each_nodes = add_q_to_nodes(&i, input, each_nodes);
-		i++;
-	}
 	return (0);
 }

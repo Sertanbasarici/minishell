@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:08:44 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/30 20:59:19 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:13:03 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,31 @@ void	ft_lstprint_s(t_special *special)
 
 
 	tmp = special->nodes_s;
-	while (tmp != NULL)
+	while (tmp->next != NULL)
 	{
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
 }
 
-void	ft_lstprint(t_mini *q_nodes)
+void	ft_lstprint(t_quote *quotes)
 {
 	t_list *tmp;
 
-	tmp = q_nodes->nodes_q;
-	while (tmp != NULL)
+	tmp = quotes->nodes_q;
+	while (tmp->next != NULL)
+	{
+		printf("%s\n", (char *)tmp->content);
+		tmp = tmp->next;
+	}
+}
+
+void	ft_lstprint_t(t_token *token)
+{
+	t_list *tmp;
+
+	tmp = token->nodes_t;
+	while (tmp->next != NULL)
 	{
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
@@ -75,13 +87,12 @@ int	ft_get_size_double_point(char **str)
 	while (str[i])
 	{
 		size += ft_strlen(str[i]);
-		size++;
 		i++;
 	}
 	return (size);
 }
 
-char	*ft_replace_hashtag(char **str)
+/*char	*ft_getridof_space(char **str)
 {
 	int		i;
 	int		j;
@@ -98,12 +109,25 @@ char	*ft_replace_hashtag(char **str)
 	{
 		j = 0;
 		while (str[i][j])
-			*(input++) = str[i][j++];
-		*input = '#';
-		input++;
+		    *(input++) = str[i][j++];
 		i++;
 	}
 	*input = '\0';
 	input = tmp;
 	return (input);
+}*/
+
+int	ft_strlen_adjusted(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void del(void *content)
+{
+	free(content);
 }
