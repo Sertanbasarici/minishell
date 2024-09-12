@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melcuman <melcuman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:42:30 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:34:32 by melcuman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int main()
 	while (1) 
 	{
 		input = readline("minishell$ ");
-		parse_init(input);
-		add_history(input);
+		parse_init(input); // parsing input
+		add_history(input); // add history
 	}
 	return 0;
 }

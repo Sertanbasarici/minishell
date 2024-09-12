@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:07:13 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/05 16:13:22 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:42:02 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-typedef struct s_white
-{
-	t_list	*nodes_w;
-}			t_white;
+#include <string.h>
+#include <sys/wait.h>
 
 typedef struct s_special
 {
@@ -39,6 +36,7 @@ typedef struct s_quote
 typedef struct s_token
 {
 	t_list	*nodes_t;
+	int		size;
 	char	**full_cmd;
 }			t_token;
 
@@ -59,17 +57,21 @@ int			ft_find_next_q(int start, char *input);
 int			parse_init(char *input);
 t_token		*ft_tokenazition(char **str, t_token *token);
 void		ft_control_token(t_token *token);
-t_token		*ft_free_undesired(t_token *token);
+char		*ft_split_with_redirect(t_list *token, t_list **head);
+void		ft_spread(t_token *token);
+int			ft_getsize(t_token *token);
+t_token		*ft_deleteLastNode(t_token *token);
 
 void		ft_error();
 void		ft_lstprint(t_quote *quotes);
 void		ft_lstprint_s(t_special *special);
-void		ft_lstprint_w(t_white *white);
 void		ft_lstprint_t(t_token *token);
 int			ft_get_size_double_point(char **str);
 void		ft_split_free(char **str);
 void		del(void *content);
 int			ft_strlen_adjusted(char **str);
+char		*ft_strtok(char *str, char *delim);
+char		*ft_tab_to_space(char *input);
 
 int			ft_special_type(char *input, int i);
 t_special	*ft_find_the_type(char *input, int i, t_special *special);
@@ -79,6 +81,6 @@ t_special	*ft_get_pipe(t_special *special, char *input, int i);
 t_special	*ft_get_redi_herodoc(t_special *special);
 t_special	*ft_get_redi_append(t_special *special);
 
-t_white		*ft_regular(int *index, char *input, t_white *white);
-
+void		ft_execute_command(t_token *token);
+char		*ft_find_command_path(char *command);
 #endif

@@ -3,39 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: murathanelcuman <murathanelcuman@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:58:15 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/02 14:15:13 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:47:41 by murathanelc      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_find_next_hashtag(int start, char *input)
-{
-	int	len;
+// void ft_execve(t_list *token)
+// {
+// 	// if (&token->next.content[0] == '-')
+//     char *str;
+//     char *argv[] = { "ls", "-l", "-a", NULL }; // Komut ve argümanlar
+//     char *envp[] = { NULL };       // Çevresel değişkenler, burada boş
 
-	len = 0;
-	start++;
-	while (input[start++] != ' ')
-		len++;
-	return (len);
-}
+//     str = (char *)token->content;
 
-t_white	*ft_regular(int *index, char *input, t_white *white)
-{
-	int		len;
-	char	*str;
+//     if (str && ft_strncmp(str, "ls", ft_strlen(str)) == 0)
+//     {
+//         // execve'nin argümanları
+//         execve("/bin/ls", argv, envp);
+        
+//         // execve başarılı bir şekilde çağrıldıysa, aşağıdaki kod çalışmaz
+//         perror("execve");
+//         exit(EXIT_FAILURE);
+//     }
+// }
 
-	len = 3;
-	str = ft_substr(input, *index + 1, len);
-	white->nodes_w = ft_lstnew(str);
-	if (white->nodes_w->next != NULL)
-		ft_lstadd_front(&white->nodes_w, white->nodes_w);
-	white->nodes_w->content = malloc(sizeof(char *));
-	white->nodes_w->content = str;
-	*index = len + 1;
-	ft_lstprint_w(white);
-	return (white);
-}
+// void	ft_command(t_token *token)
+// {
+// 	// buildin command veya exec (ls) controlu
+// 	t_list *tmp;
+
+// 	tmp = token->nodes_t;
+// 	while (tmp->next != NULL)
+// 	{
+// 		// if ()
+// 		tmp = tmp->next;
+// 	}
+// }

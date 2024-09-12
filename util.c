@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:08:44 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/05 16:13:03 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:59:59 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,6 @@ void	ft_error()
 {
 	printf("error\n");
 	exit(1);
-}
-
-void	ft_lstprint_w(t_white *white)
-{
-	t_list *tmp;
-
-	tmp = white->nodes_w;
-	while (tmp != NULL)
-	{
-		printf("%s\n", (char *)tmp->content);
-		tmp = tmp->next;
-	}
 }
 
 void	ft_lstprint_s(t_special *special)
@@ -70,7 +58,7 @@ void	ft_lstprint_t(t_token *token)
 	t_list *tmp;
 
 	tmp = token->nodes_t;
-	while (tmp->next != NULL)
+	while (tmp)
 	{
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
@@ -92,31 +80,6 @@ int	ft_get_size_double_point(char **str)
 	return (size);
 }
 
-/*char	*ft_getridof_space(char **str)
-{
-	int		i;
-	int		j;
-	char	*input;
-	int		size;
-	char	*tmp;
-
-	i = 0;
-	j = 0;
-	size = ft_get_size_double_point(str);
-	input = malloc(sizeof(char) * (size + 1));
-	tmp = input;
-	while (str[i])
-	{
-		j = 0;
-		while (str[i][j])
-		    *(input++) = str[i][j++];
-		i++;
-	}
-	*input = '\0';
-	input = tmp;
-	return (input);
-}*/
-
 int	ft_strlen_adjusted(char **str)
 {
 	int	i;
@@ -130,4 +93,40 @@ int	ft_strlen_adjusted(char **str)
 void del(void *content)
 {
 	free(content);
+}
+
+char *ft_strtok(char *str, char *delim)
+{
+	static char *next;
+	if (str != NULL)
+		next = str;
+	if (next == NULL)
+		return NULL;
+	while (*next && ft_strchr(delim, *next))
+		next++;
+	if (*next == '\0')
+		return NULL;
+	char *token_start = next;
+	while (*next && !ft_strchr(delim, *next))
+		next++;
+	if (*next)
+	{
+		*next = '\0';
+		next++;
+	}
+	return token_start;
+}
+
+char	*ft_tab_to_space(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\t')
+			input[i] = ' ';
+		i++;
+	}
+	return (input);
 }
