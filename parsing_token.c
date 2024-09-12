@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:04:05 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/12 11:12:51 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:19:36 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int	parse_init(char *input)
 	ft_split_free(str);
 //	ft_lstprint_t(token);
 	token->size = ft_getsize(token);
-	ft_spread(token);
-//	ft_execute_command(token);
+	ft_spread(token);// -----------------> bu fonksiyonda her bir link liste char arraye gönüştürdüm bu şekilde
+//	ft_execute_command(token);//--------->  token olarak girilen inputu ayırmış oldum (ls) (-la) | (a.txt)  önceki hali sonraki hali (ls -la) (|) (a.txt) ayrı
 //	ft_control_token(token);
 //	printf("gecti 1\n");
 //	ft_split_free(token->full_cmd);
