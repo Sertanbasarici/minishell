@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:07:13 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/12 10:42:02 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:45:51 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,29 @@ typedef struct s_quote
 	t_list	*nodes_q;
 }			t_quote;
 
-typedef struct s_token
+enum						e_tokens
 {
-	t_list	*nodes_t;
-	int		size;
-	char	**full_cmd;
-}			t_token;
+	PIPE,
+	GREATER,
+	SMALLER,
+	APPEND,
+	HERE_DOC,
+	STRING,
+};
 
+typedef struct	s_token
+{
+	t_list					*nodes_t;
+	int						token_num;
+	int						size;
+	enum e_tokens			type;
+	char					**full_cmd;
+}							t_token;
+
+// initialize
+void		adjsut_all(char *input);
+
+// adjust quotes
 int			ft_single_quotes_finised(char *input, int index);
 int			ft_quotes_num(char *input);
 int			ft_is_quotes_there(char *input);
@@ -54,6 +70,7 @@ int			ft_even_odd(char *str, char c);
 t_quote		*add_q_to_nodes(int *index, char *input, t_quote *quotes);
 int			ft_find_next_q(int start, char *input);
 
+//parse init()
 int			parse_init(char *input);
 t_token		*ft_tokenazition(char **str, t_token *token);
 void		ft_control_token(t_token *token);
@@ -62,6 +79,7 @@ void		ft_spread(t_token *token);
 int			ft_getsize(t_token *token);
 t_token		*ft_deleteLastNode(t_token *token);
 
+// util
 void		ft_error();
 void		ft_lstprint(t_quote *quotes);
 void		ft_lstprint_s(t_special *special);
@@ -73,6 +91,7 @@ int			ft_strlen_adjusted(char **str);
 char		*ft_strtok(char *str, char *delim);
 char		*ft_tab_to_space(char *input);
 
+//redirect
 int			ft_special_type(char *input, int i);
 t_special	*ft_find_the_type(char *input, int i, t_special *special);
 t_special	*ft_get_redi_in(t_special *special, char *input, int i);
@@ -81,6 +100,7 @@ t_special	*ft_get_pipe(t_special *special, char *input, int i);
 t_special	*ft_get_redi_herodoc(t_special *special);
 t_special	*ft_get_redi_append(t_special *special);
 
+//execute
 void		ft_execute_command(t_token *token);
 char		*ft_find_command_path(char *command);
 #endif

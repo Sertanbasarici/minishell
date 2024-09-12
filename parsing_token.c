@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:04:05 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/12 13:19:36 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:52:50 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,9 @@ int	parse_init(char *input)
 	ft_split_free(str);
 //	ft_lstprint_t(token);
 	token->size = ft_getsize(token);
-	ft_spread(token);// -----------------> bu fonksiyonda her bir link liste char arraye gönüştürdüm bu şekilde
-//	ft_execute_command(token);//--------->  token olarak girilen inputu ayırmış oldum (ls) (-la) | (a.txt)  önceki hali sonraki hali (ls -la) (|) (a.txt) ayrı
+	ft_spread(token);
+//	ft_execute_command(token);
 //	ft_control_token(token);
-//	printf("gecti 1\n");
-//	ft_split_free(token->full_cmd);
 	return (0);
 }
 
@@ -194,43 +192,3 @@ t_token	*ft_tokenazition(char **str, t_token *token)
 	token = ft_deleteLastNode(token);
 	return (token);
 }
-
-// özel karakterler de sıkıntı var 
-/*t_token	*ft_free_undesired(t_token *token)
-{
-	t_list	*tmp;
-	t_list	*tmp_pre;
-	char	*str;
-		Check if token or token->nodes_t is null
-	if (!token && token->nodes_t)
-		return token;
-	tmp = token->nodes_t;
-	str = (char *)tmp->content;
-		Check if the first node matches undesired conditions
-	
-	if (str && (ft_is_quotes_there_index(str[0]) || ft_special_type(str, 0)))
-	{
-		token->nodes_t = tmp->next;
-		ft_lstdelone(tmp, del);
-		ft_lstprint_t(token);
-		return (token);
-	}
-		Initialize pointers to traverse the list
-	tmp_pre = tmp;
-	tmp = tmp_pre->next;
-	str = (char *)tmp->content;
-	while (tmp != NULL)
-	{
-
-			If we find undesired token, remove it
-		if (str && (ft_is_quotes_there_index(str[0]) || ft_special_type(str, 0)))
-		{
-			tmp_pre->next = tmp->next;
-			ft_lstdelone(tmp, del);
-			return (token);
-		}
-		tmp_pre = tmp; // Move to next node
-		tmp = tmp->next;
-	}
-	return (token);
-}*/
