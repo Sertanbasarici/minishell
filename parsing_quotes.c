@@ -3,56 +3,118 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_quotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melcuman <melcuman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:44:46 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/09 19:02:55 by melcuman         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:17:31 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_find_next_q(int start, char *input)
+t_list	*ft_getridof_q(t_list *nodes_t)
 {
-	int	len;
+	t_list	*tmp;
+	int		i;
+	int		j;
+	char	*str;
+	char	*new_str;
+	int		len;
 
 	len = 0;
+	i = 0;
+	j = 0;
+	tmp = nodes_t;
+	str = (char *)nodes_t->content;
+	while (str[i])
+	{
+		if (ft_is_quotes_there_index(str[i]))
+			len++;
+		i++;
+	}
+	new_str = malloc(sizeof(char) * (ft_strlen(str) - len + 1));
+	i = 0;
+	while (str[i])
+	{
+		if (ft_is_quotes_there_index(str[i]))
+			i++;
+		else
+			new_str[j++] = str[i++];
+	}
+	new_str[j] = '\0';
+	free(str);
+	nodes_t->content = malloc(sizeof(char) * (ft_strlen(str) - len + 1));
+	ft_strlcpy(nodes_t->content, new_str, ft_strlen(new_str) + 1);
+	free(new_str);
+	return (nodes_t);
+}
+
+int	ft_find_next_q(int start, char *input)
+{
+	int	next_q;
+
+	next_q = start;
 	if (input[start] == '\'')
 	{
-		start++;
+		next_q++;
 		if (ft_single_quotes_finised(input, start))
 			ft_error();
-		while (input[start] != '\'' && input[start++] != '\n')
-			len++;
+		while (input[next_q] != '\'' && input[next_q] != '\n' && input[next_q] != '\0')
+			next_q++;
 	}
 	else if (input[start] == '\"')
 	{
-		start++;
+		next_q++;
 		if (ft_double_quotes_finised(input, start))
 			ft_error();
-		while (input[start] != '\"' && input[start++] != '\n')
-			len++;
+		while (input[next_q] != '\"' && input[next_q] != '\n' && input[next_q] != '\0')
+			next_q++;
 	}
-	return (len);
+	return (next_q);
 }
 
-t_quote	*add_q_to_nodes(int *index, char *input, t_quote *quotes)
+t_list	*ft_basic_q(t_list *nodes_t, int len)
 {
-	int			len;
-	char		*str;
-	t_list		*new;
+	char	*new_str;
+	char	*str;
+	int		i;
+	int		j;
 
-	len = ft_find_next_q(*index, input);
-	str = ft_substr(input, *index + 1, len);
-	new = ft_lstnew(str);
-	ft_lstadd_front(&quotes->nodes_q, new);
-	quotes->nodes_q->content = malloc((ft_strlen(str) + 1) * sizeof(char));
-	ft_strlcpy(quotes->nodes_q->content, str, len + 1);
-	*index += len + 1;
-	printf("cafer 1\n");
-	ft_lstprint(quotes);
+	i = 0;
+	j = 0;
+	str = (char *)nodes_t->content;
+	new_str = malloc(sizeof(char) * (len - 1));
+	while (str[i])
+	{
+		if (ft_is_quotes_there_index(str[i]))
+			i++;
+		else 
+			new_str[j++] = str[i++];
+	}
+	new_str[j] = '\0';
 	free(str);
-	return (quotes);
+	nodes_t->content = malloc(sizeof(char) * (len - 1));
+	ft_strlcpy(nodes_t->content, new_str, ft_strlen(new_str) + 1);
+	free(new_str);
+	return (nodes_t);
+}
+
+t_list	*add_q_to_nodes(int *index, char *input, t_list *token_list)
+{
+	int		next_q;
+	t_list	*tmp;
+
+	tmp = token_list;
+	next_q = ft_find_next_q(*index, input);
+	if (*index == 0 && ((int)ft_strlen(input) - 1) == next_q)
+	{
+		tmp = ft_basic_q(tmp, next_q);
+		*index = next_q;
+		return (tmp);
+	}
+	tmp = ft_getridof_q(tmp);
+	*index = next_q;
+	return (tmp);
 }
 
 int	ft_is_quotes_there_index(char c)

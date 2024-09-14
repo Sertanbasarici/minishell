@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:34:50 by sebasari          #+#    #+#             */
-/*   Updated: 2024/02/18 17:27:19 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:22:20 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct s_list
 {
 	void			*content;
+	int				index;
 	struct s_list	*next;
 }	t_list;
 

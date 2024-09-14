@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:04:05 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/12 23:52:50 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:16:49 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,20 @@ void	ft_control_token(t_token *token)
 	int			i;
 	char		*str;
 	t_list		*tmp;
-	t_quote		*quotes;
 	t_special	*special;
 
-	quotes = malloc(sizeof(t_quote));
-	quotes->nodes_q = malloc(sizeof(t_list));
-	quotes->nodes_q->next = NULL;
 	special = malloc(sizeof(t_special));
 	special->nodes_s = malloc(sizeof(t_list));
-	quotes->nodes_q->next = NULL;
+	special->nodes_s->next = NULL;
 	tmp = token->nodes_t;
-	while (tmp -> next != NULL)
+	while (tmp != NULL)
 	{
 		str = (char *)tmp->content;
 		i = 0;
 		while (str[i])
 		{
-			if (ft_is_quotes_there_index(str[i])) {
-				printf("gecti 1\n");
-				quotes = add_q_to_nodes(&i, str, quotes);
-			}
+			if (ft_is_quotes_there_index(str[i]))
+				tmp = add_q_to_nodes(&i, str, tmp);
 			if (ft_special_type(str, i)) {
 				printf("gecti 2\n");
 				special = ft_find_the_type(str, i, special);
@@ -45,8 +39,6 @@ void	ft_control_token(t_token *token)
 		}
 		tmp = tmp->next;
 	}
-	// ft_command(token);
-	// token = ft_free_undesired(token);
 }
 
 int	parse_init(char *input)
@@ -62,33 +54,13 @@ int	parse_init(char *input)
 	str = ft_split(input, ' ');
 	token = ft_tokenazition(str, token);
 	ft_split_free(str);
-//	ft_lstprint_t(token);
+	ft_control_token(token);
+	printf("%d \n", ft_lstsize(token->nodes_t));
+	ft_lstprint_t(token);
 	token->size = ft_getsize(token);
 	ft_spread(token);
 //	ft_execute_command(token);
-//	ft_control_token(token);
 	return (0);
-}
-
-t_token *ft_deleteLastNode(t_token *token)
-{
-	t_list *tmp;
-
-	tmp = token->nodes_t;
-	if (tmp == NULL)
-		return NULL;
-	if (tmp->next == NULL)
-	{
-		free(tmp);
-		tmp = NULL;
-		return NULL;
-	}
-	while (tmp->next->next != NULL) {
-		tmp = tmp->next;
-	}
-	free(tmp->next);
-	tmp->next = NULL;
-	return (token);
 }
 
 int	ft_getsize(t_token *token)
@@ -96,7 +68,6 @@ int	ft_getsize(t_token *token)
 	int	size;
 	t_list *tmp;
 	char	*str;
-
 
 	tmp = token->nodes_t;
 	size = 1;
@@ -184,7 +155,9 @@ t_token	*ft_tokenazition(char **str, t_token *token)
 	while (i >= 0)
 	{
 		new	= ft_lstnew(str[i]);
+
 		ft_lstadd_front(&token->nodes_t, new);
+		token->nodes_t->index = i;
 		token->nodes_t->content = malloc((ft_strlen(str[i]) + 1) * sizeof(char));
 		ft_strlcpy(token->nodes_t->content, str[i], ft_strlen(str[i]) + 1);
 		i--;

@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:07:13 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/12 23:45:51 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:36:02 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ typedef struct s_special
 	t_list	*nodes_s;
 }			t_special;
 
-typedef struct s_quote
-{
-	t_list	*nodes_q;
-}			t_quote;
-
 enum						e_tokens
 {
 	PIPE,
@@ -52,6 +47,8 @@ typedef struct	s_token
 	char					**full_cmd;
 }							t_token;
 
+int			check_if_empty(char *str);
+
 // initialize
 void		adjsut_all(char *input);
 
@@ -67,8 +64,10 @@ void		ft_back_slash(char *str);
 int			ft_double_quotes_check(char *str, int index);
 int			ft_double_quotes_finised(char *input, int index);
 int			ft_even_odd(char *str, char c);
-t_quote		*add_q_to_nodes(int *index, char *input, t_quote *quotes);
+t_list		*add_q_to_nodes(int *index, char *input, t_list *token_list);
 int			ft_find_next_q(int start, char *input);
+t_list		*ft_getridof_q(t_list *nodes_t);
+t_list		*ft_basic_q(t_list *nodes_t, int	len);
 
 //parse init()
 int			parse_init(char *input);
@@ -81,7 +80,6 @@ t_token		*ft_deleteLastNode(t_token *token);
 
 // util
 void		ft_error();
-void		ft_lstprint(t_quote *quotes);
 void		ft_lstprint_s(t_special *special);
 void		ft_lstprint_t(t_token *token);
 int			ft_get_size_double_point(char **str);
