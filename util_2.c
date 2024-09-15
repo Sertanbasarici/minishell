@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/14 19:15:56 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char *ft_strtok(char *str, char *delim)
 		next++;
 	if (*next == '\0')
 		return NULL;
-	char *token_start = next;
+	char *mini_start = next;
 	while (*next && !ft_strchr(delim, *next))
 		next++;
 	if (*next)
@@ -46,7 +46,7 @@ char *ft_strtok(char *str, char *delim)
 		*next = '\0';
 		next++;
 	}
-	return token_start;
+	return mini_start;
 }
 
 char	*ft_tab_to_space(char *input)
@@ -63,11 +63,11 @@ char	*ft_tab_to_space(char *input)
 	return (input);
 }
 
-t_token *ft_deleteLastNode(t_token *token)
+t_minishell *ft_deleteLastNode(t_minishell *mini)
 {
 	t_list *tmp;
 
-	tmp = token->nodes_t;
+	tmp = mini->nodes_t;
 	if (tmp == NULL)
 		return NULL;
 	if (tmp->next == NULL)
@@ -81,5 +81,5 @@ t_token *ft_deleteLastNode(t_token *token)
 	}
 	free(tmp->next);
 	tmp->next = NULL;
-	return (token);
+	return (mini);
 }

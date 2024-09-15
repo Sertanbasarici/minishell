@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:34:50 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/14 15:22:20 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,23 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+enum	e_minis
+{
+	PIPE,
+	GREATER,
+	SMALLER,
+	APPEND,
+	HERE_DOC,
+	STRING,
+};
+
 typedef struct s_list
 {
-	void			*content;
-	int				index;
-	struct s_list	*next;
+	int					n_minis;
+	void				*content;
+	enum e_minis		type;
+	int					index;
+	struct s_list		*next;
 }	t_list;
 
 t_list	*ft_lstnew(void *content);

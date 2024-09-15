@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   util_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 10:58:15 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/15 14:31:21 by sebasari         ###   ########.fr       */
+/*   Created: 2024/09/15 17:25:43 by sebasari          #+#    #+#             */
+/*   Updated: 2024/09/15 17:48:40 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	adjsut_all(char *input)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	parse_init(input);
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

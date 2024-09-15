@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:44:46 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/14 19:17:31 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ t_list	*ft_basic_q(t_list *nodes_t, int len)
 	return (nodes_t);
 }
 
-t_list	*add_q_to_nodes(int *index, char *input, t_list *token_list)
+t_list	*add_q_to_nodes(int *index, char *input, t_list *mini_list)
 {
 	int		next_q;
 	t_list	*tmp;
 
-	tmp = token_list;
+	tmp = mini_list;
 	next_q = ft_find_next_q(*index, input);
 	if (*index == 0 && ((int)ft_strlen(input) - 1) == next_q)
 	{

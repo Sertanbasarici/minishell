@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:24 by murathanelc       #+#    #+#             */
-/*   Updated: 2024/09/11 13:25:24 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_find_command_path(char *command)
 	return (NULL);
 }
 
-void	ft_execute_command(t_token *token)
+void	ft_execute_command(t_minishell *mini)
 {
 	char	**argv;
 	char	*command_path;
@@ -50,8 +50,8 @@ void	ft_execute_command(t_token *token)
 	int		i;
 	t_list	*temp;
 	
-	temp = token->nodes_t;
-	if (token == NULL || (char *)temp->content == NULL)
+	temp = mini->nodes_t;
+	if (mini == NULL || (char *)temp->content == NULL)
 		return ;
 	str = (char *)temp->content;
 	command_path = ft_find_command_path(str);
@@ -68,7 +68,7 @@ void	ft_execute_command(t_token *token)
 	}
 	argv = malloc((argc + 1) *  sizeof(char *));
 	i = 0;
-	temp = token->nodes_t;
+	temp = mini->nodes_t;
 	while (i < argc && temp != NULL)
 	{
 		argv[i] = (char *)temp->content;

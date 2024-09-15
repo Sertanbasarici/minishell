@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:08:44 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/14 19:13:18 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	ft_lstprint_s(t_special *special)
 	}
 }
 
-void	ft_lstprint_t(t_token *token)
+void	ft_lstprint_t(t_minishell *mini)
 {
 	t_list *tmp;
 
-	tmp = token->nodes_t;
+	tmp = mini->nodes_t;
 	while (tmp)
 	{
 		printf("%s\n", (char *)tmp->content);

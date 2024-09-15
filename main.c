@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 12:27:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/14 21:17:41 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:16:03 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 		input = readline("minishell$ ");
 		if (check_if_empty(input) == 1)
 			continue ;
+		adjsut_all(input);
 		add_history(input);
 	}
 	return 0;
