@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/18 13:18:47 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/17 11:12:45 by sebasari         ###   ########.fr       */
+/*   Created: 2024/09/17 15:46:22 by sebasari          #+#    #+#             */
+/*   Updated: 2024/09/17 15:52:53 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+t_parse	*parse(int in_file, int out_file, t_list *token)
 {
-	if (!lst || !new)
-		return ;
-	new -> next = *lst;
-	*lst = new;
+	t_parse	*current;
+
+	while (token != NULL)
+	{
+		current = init_cmd();
+	}
 }

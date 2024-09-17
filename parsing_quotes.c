@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:44:46 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:07:09 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_list	*ft_getridof_q(t_list *nodes_t)
 {
-	t_list	*tmp;
 	int		i;
 	int		j;
 	char	*str;
@@ -24,7 +23,6 @@ t_list	*ft_getridof_q(t_list *nodes_t)
 	len = 0;
 	i = 0;
 	j = 0;
-	tmp = nodes_t;
 	str = (char *)nodes_t->content;
 	while (str[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:08:44 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:36:49 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,14 @@ void	ft_error()
 	exit(1);
 }
 
-void	ft_lstprint_s(t_special *special)
-{
-	t_list *tmp;
-
-
-	tmp = special->nodes_s;
-	while (tmp->next != NULL)
-	{
-		printf("%s\n", (char *)tmp->content);
-		tmp = tmp->next;
-	}
-}
-
 void	ft_lstprint_t(t_minishell *mini)
 {
 	t_list *tmp;
 
 	tmp = mini->nodes_t;
-	while (tmp)
+	while (tmp != NULL)
 	{
-		printf("%s\n", (char *)tmp->content);
+		printf("%s %d\n", (char *)tmp->content, tmp->index);
 		tmp = tmp->next;
 	}
 }

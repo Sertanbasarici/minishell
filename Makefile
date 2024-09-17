@@ -1,5 +1,5 @@
 NAME = minishell
-SRC = main.c double_quotes.c single_quotes.c parsing_token.c parsing_quotes.c parsing_special.c parsing_special_1.c util.c util_2.c util_3.c init.c ft_exec.c
+SRC = main.c double_quotes.c single_quotes.c tokenization.c parsing_quotes.c token_special.c token_special_1.c util.c util_2.c util_3.c init.c ft_exec.c syntax_controll.c
 
 OBJS = $(SRC:.c=.o)
 CC = gcc

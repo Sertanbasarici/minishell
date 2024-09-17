@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/15 14:35:34 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:39:31 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,19 @@ char	*ft_tab_to_space(char *input)
 	return (input);
 }
 
-t_minishell *ft_deleteLastNode(t_minishell *mini)
+t_minishell *ft_deleteFirstNode(t_minishell *mini)
 {
-	t_list *tmp;
 
-	tmp = mini->nodes_t;
-	if (tmp == NULL)
+	t_list	*temp;
+
+	temp = mini->nodes_t;
+	if (!temp)
 		return NULL;
-	if (tmp->next == NULL)
-	{
-		free(tmp);
-		tmp = NULL;
-		return NULL;
-	}
-	while (tmp->next->next != NULL) {
-		tmp = tmp->next;
-	}
-	free(tmp->next);
-	tmp->next = NULL;
+	
+	mini->nodes_t = mini->nodes_t->next;
+
+	if (temp->content)
+		free(temp->content);
+	free(temp);
 	return (mini);
 }

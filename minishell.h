@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:07:13 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/15 18:47:08 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:46:01 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,19 @@
 #include <string.h>
 #include <sys/wait.h>
 
-typedef struct s_special
+typedef struct	s_parse
 {
-	t_list	*nodes_s;
-}			t_special;
+	char			*cmd;
+	char			**args;
+	int				out_file;
+	int				in_file;
+	struct s_list	*next;
+}					t_parse;
 
 typedef struct	s_minishell
 {
 	t_list			*nodes_t;
+	t_parse			*nodes_p;
 	int				token_num;
 	int				size;
 	char			**full_cmd;
@@ -65,11 +70,9 @@ void		ft_control_token(t_minishell *mini);
 char		*ft_split_with_redirect(t_list *mini, t_list **head);
 void		ft_spread(t_minishell *mini);
 int			ft_getsize(t_minishell *mini);
-t_minishell	*ft_deleteLastNode(t_minishell *mini);
 
 // util
 void		ft_error();
-void		ft_lstprint_s(t_special *special);
 void		ft_lstprint_t(t_minishell *mini);
 int			ft_get_size_double_point(char **str);
 void		ft_split_free(char **str);
@@ -78,16 +81,26 @@ int			ft_strlen_adjusted(char **str);
 char		*ft_strtok(char *str, char *delim);
 char		*ft_tab_to_space(char *input);
 int			ft_strcmp(const char *s1, const char *s2);
+void		print_error(char *arg, char *message, int exit_status);
+t_minishell	*ft_deleteFirstNode(t_minishell *mini);
 
 //redirect
-int			ft_special_type(char *input, int i);
-t_special	*ft_find_the_type(char *input, int i, t_special *special);
-t_special	*ft_get_redi_in(t_special *special, char *input, int i);
-t_special	*ft_get_redi_out(t_special *special, char *input, int i);
-t_special	*ft_get_pipe(t_special *special, char *input, int i);
-t_special	*ft_get_redi_herodoc(t_special *special);
-t_special	*ft_get_redi_append(t_special *special);
+int			ft_special_type(char *input);
+t_minishell	*ft_find_the_type(char *input, int start,int len, t_minishell *special,int *index_num);
+t_minishell	*ft_get_redi_in(char *input, int start,int len, t_minishell *special, int *index_num);
+t_minishell	*ft_get_redi_out(char *input, int start,int len, t_minishell *special, int *index_num);
+t_minishell	*ft_get_pipe(char *input, int start, int len, t_minishell *mini, int *index_num);
+t_minishell	*ft_get_redi_herodoc(char *input, int start,int len, t_minishell *special, int *index_num);
+t_minishell	*ft_get_redi_append(char *input, int start,int len, t_minishell *special, int *index_num);
 t_minishell	*ft_assign_special_type(t_minishell *mini);
+t_minishell	*divide_accordingly(char *input, t_minishell *mini, int *index);
+t_minishell	*ft_add_new_node(char *input, int start, int len, t_minishell *mini, int *index_num);
+
+//syntax controll
+int			ft_syntax_check(t_minishell *mini);
+int			fixed_check(t_list *tmp_token);
+int			redic_check(t_list *tmp_token);
+int			pipe_check(t_list *tmp_token, t_list *tmp_prev);
 
 //execute
 void		ft_execute_command(t_minishell *mini);

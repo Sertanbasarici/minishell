@@ -17,11 +17,7 @@ void	ft_control_token(t_minishell *mini)
 	int			i;
 	char		*str;
 	t_list		*tmp;
-	t_special	*special;
 
-	special = malloc(sizeof(t_special));
-	special->nodes_s = malloc(sizeof(t_list));
-	special->nodes_s->next = NULL;
 	tmp = mini->nodes_t;
 	while (tmp != NULL)
 	{
@@ -31,35 +27,37 @@ void	ft_control_token(t_minishell *mini)
 		{
 			if (ft_is_quotes_there_index(str[i]))
 				tmp = add_q_to_nodes(&i, str, tmp);
-			if (ft_special_type(str, i)) {
-				printf("gecti 2\n");
-				special = ft_find_the_type(str, i, special);
-			}
 			i++;
 		}
 		tmp = tmp->next;
 	}
 }
 
-int	parse_init(char *input)
+t_minishell	*ft_tokanazition(char **str, t_minishell *mini)
 {
-	char		**str;
-	t_minishell		*mini;
+	int	i;
+	int	j;
+	t_list *new;
 
-	mini = malloc(sizeof(t_minishell));
-	mini->nodes_t = malloc(sizeof(t_list));
-	mini->nodes_t->next = NULL;
-	input = ft_tab_to_space(input);
-	input = ft_strtrim(input, " ");
-	str = ft_split(input, ' ');
-	mini = ft_tokanazition(str, mini);
-	mini = ft_assign_special_type(mini);
-	ft_lstprint_t(mini);
-	printf("%d \n", mini->nodes_t->type);
-//	ft_control_token(mini);
-//	ft_spread(mini);
-//	ft_execute_command(mini);
-	return (0);
+	j = 0;
+	i =  0;
+	while (str[i])
+	{
+		if (ft_special_type(str[i]))
+			mini = divide_accordingly(str[i], mini, &j);
+		else
+		{
+			new	= ft_lstnew(str[i]);
+			ft_lstadd_back(&mini->nodes_t, new);
+			new->index = j;
+			new->content = malloc((ft_strlen(str[i]) + 1) * sizeof(char));
+			ft_strlcpy(new->content, str[i], ft_strlen(str[i]) + 1);
+			j++;
+		}
+		i++;
+	}
+	mini = ft_deleteFirstNode(mini);
+	return (mini);
 }
 
 int	ft_getsize(t_minishell *mini)
@@ -73,7 +71,7 @@ int	ft_getsize(t_minishell *mini)
 	while (tmp->next != NULL)
 	{
 		str = (char *)tmp->content;
-		if (ft_special_type(str, 0))
+		if (ft_special_type(str))
 			size++;
 		tmp = tmp->next;
 	}
@@ -92,7 +90,7 @@ char	*ft_split_with_redirect(t_list *mini, t_list **head)
 	j = 0;
 	len = 0;
 	tmp = *head;
-	while (tmp != NULL && !(ft_special_type((char *)tmp->content, 0)))
+	while (tmp != NULL && !(ft_special_type((char *)tmp->content)))
 	{
 		len += ft_strlen((char *)tmp->content);
 		tmp = tmp->next;
@@ -102,7 +100,7 @@ char	*ft_split_with_redirect(t_list *mini, t_list **head)
 		return (NULL);
 	i = 0;
 	tmp = *head;
-	while (tmp != NULL && !(ft_special_type((char *)tmp->content, 0)))
+	while (tmp != NULL && !(ft_special_type((char *)tmp->content)))
 	{
 		str_tmp = (char *)tmp->content;
 		i = 0;
@@ -112,7 +110,7 @@ char	*ft_split_with_redirect(t_list *mini, t_list **head)
 	}
 	if (tmp == NULL)
 		(*head) = mini;
-	else if ((ft_special_type((char *)tmp->content, 0)))
+	else if ((ft_special_type((char *)tmp->content)))
 		(*head) = mini->next;
 	str[len] = '\0';
 	return (str);
@@ -133,7 +131,7 @@ void	ft_spread(t_minishell *mini)
 	while (tmp != NULL)
 	{
 		str = (char *)tmp->content;
-		if (ft_special_type(str, 0) || tmp->next == NULL)
+		if (ft_special_type(str) || tmp->next == NULL)
 		{
 			mini->full_cmd[i] = ft_split_with_redirect(tmp, &tmp_1);
 			printf("%s\n", mini->full_cmd[i]);
@@ -144,26 +142,26 @@ void	ft_spread(t_minishell *mini)
 	mini->full_cmd[i] = NULL;
 }
 
-
-t_minishell	*ft_tokanazition(char **str, t_minishell *mini)
+int	parse_init(char *input)
 {
-	int	i;
-	int	j;
-	t_list *new;
+	char		**str;
+	t_minishell		*mini;
 
-	j = 0;
-	i = ft_strlen_adjusted(str) - 1;
-	while (i >= 0)
-	{
-		new	= ft_lstnew(str[i]);
-
-		ft_lstadd_front(&mini->nodes_t, new);
-		mini->nodes_t->index = j;
-		mini->nodes_t->content = malloc((ft_strlen(str[i]) + 1) * sizeof(char));
-		ft_strlcpy(mini->nodes_t->content, str[i], ft_strlen(str[i]) + 1);
-		i--;
-		j++;
-	}
-	mini = ft_deleteLastNode(mini);
-	return (mini);
+	mini = malloc(sizeof(t_minishell));
+	mini->nodes_t = malloc(sizeof(t_list));
+	mini->nodes_t->next = NULL;
+	input = ft_tab_to_space(input);
+	input = ft_strtrim(input, " ");
+	str = ft_split(input, ' ');
+	mini = ft_tokanazition(str, mini);
+	ft_split_free(str);
+	ft_control_token(mini);
+	mini = ft_assign_special_type(mini);
+	if (ft_syntax_check(mini))
+		return (1);
+	ft_lstprint_t(mini);
+	parse(0, 1, mini->nodes_t);
+//	ft_spread(mini);
+//	ft_execute_command(mini);
+	return (0);
 }
