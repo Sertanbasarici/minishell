@@ -33,6 +33,29 @@ void	ft_control_token(t_minishell *mini)
 	}
 }
 
+int	parse_init(char *input)
+{
+	char			**str;
+	t_minishell		*mini;
+
+	mini = malloc(sizeof(t_minishell));
+	mini->nodes_t = malloc(sizeof(t_list));
+	mini->nodes_t->next = NULL;
+	input = ft_tab_to_space(input);
+	input = ft_strtrim(input, " ");
+	str = ft_split(input, ' ');
+	mini = ft_tokanazition(str, mini);
+	ft_split_free(str);
+	mini = ft_assign_special_type(mini);
+	ft_control_token(mini);
+	if (ft_syntax_check(mini))
+		return (1);
+	mini->token_num = ft_lstprint_t(mini);
+	mini = parse(0, 1, mini);
+//	ft_execute_command(mini);
+	return (0);
+}
+
 t_minishell	*ft_tokanazition(char **str, t_minishell *mini)
 {
 	int	i;
@@ -60,7 +83,9 @@ t_minishell	*ft_tokanazition(char **str, t_minishell *mini)
 	return (mini);
 }
 
-int	ft_getsize(t_minishell *mini)
+
+
+/*int	ft_getsize(t_minishell *mini)
 {
 	int	size;
 	t_list *tmp;
@@ -140,28 +165,4 @@ void	ft_spread(t_minishell *mini)
 		tmp = tmp->next;
 	}
 	mini->full_cmd[i] = NULL;
-}
-
-int	parse_init(char *input)
-{
-	char		**str;
-	t_minishell		*mini;
-
-	mini = malloc(sizeof(t_minishell));
-	mini->nodes_t = malloc(sizeof(t_list));
-	mini->nodes_t->next = NULL;
-	input = ft_tab_to_space(input);
-	input = ft_strtrim(input, " ");
-	str = ft_split(input, ' ');
-	mini = ft_tokanazition(str, mini);
-	ft_split_free(str);
-	ft_control_token(mini);
-	mini = ft_assign_special_type(mini);
-	if (ft_syntax_check(mini))
-		return (1);
-	ft_lstprint_t(mini);
-	parse(0, 1, mini->nodes_t);
-//	ft_spread(mini);
-//	ft_execute_command(mini);
-	return (0);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:07 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/17 11:39:31 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/18 21:34:54 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ t_minishell *ft_deleteFirstNode(t_minishell *mini)
 {
 
 	t_list	*temp;
-
 	temp = mini->nodes_t;
 	if (!temp)
 		return NULL;
-	
 	mini->nodes_t = mini->nodes_t->next;
 
-	if (temp->content)
-		free(temp->content);
+	//if (temp->content) {
+	//	free(temp->content);
+	//	printf("gecti \n");
+	//}
 	free(temp);
 	return (mini);
 }

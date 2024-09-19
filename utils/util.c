@@ -1,25 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util_3.c                                           :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 17:25:43 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/17 13:42:37 by sebasari         ###   ########.fr       */
+/*   Created: 2024/08/22 15:08:44 by sebasari          #+#    #+#             */
+/*   Updated: 2024/09/19 15:44:15 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	ft_split_free(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
+	while (str[i])
+		free(str[i++]);
+	free(str);
+}
+
+void	ft_error()
+{
+	printf("error\n");
+	exit(1);
+}
+
+int	ft_lstprint_t(t_minishell *mini)
+{
+	t_list *tmp;
+	int		i;
+
+	i = 0;
+	tmp = mini->nodes_t;
+	while (tmp != NULL)
+	{
+		//printf("%s index:%d type:%d\n", (char *)tmp->content, tmp->index, tmp->type);
+		tmp = tmp->next;
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+
+	return (i);
+}
+
+int	ft_get_size_double_point(char **str)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = 0;
+	while (str[i])
+	{
+		size += ft_strlen(str[i]);
+		i++;
+	}
+	return (size);
 }
 
 void	print_error(char *arg, char *message, int exit_status)

@@ -1,12 +1,27 @@
 NAME = minishell
-SRC = main.c double_quotes.c single_quotes.c tokenization.c parsing_quotes.c token_special.c token_special_1.c util.c util_2.c util_3.c init.c ft_exec.c syntax_controll.c
-
-OBJS = $(SRC:.c=.o)
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -I.
 RM = rm -rf
 
+SRC = 	./parsing/tokenization.c \
+		./parsing/parsing_quotes.c \
+		./parsing/token_special.c \
+		./parsing/token_special_1.c \
+		./parsing/parse.c \
+		./parsing/syntax_controll.c \
+		./utils/single_quotes.c \
+		./utils/util.c \
+		./utils/util_2.c \
+		./utils/util_3.c \
+		./utils/double_quotes.c \
+		./init.c \
+		./ft_exec.c \
+		./main.c
+
+OBJS = $(SRC:.c=.o)
+
 all: $(NAME)
+
 $(NAME): $(OBJS)
 	@$(MAKE) -C ./libft
 	@$(CC) $(CFLAGS) $(OBJS) -lreadline ./libft/libft.a -o $(NAME)
@@ -22,3 +37,6 @@ fclean:
 re: fclean all
 
 .PHONY: all re clean fclean
+
+valgrind: re
+	@valgrind -s --leak-check=full --show-leak-kinds=all --log-file=output.log ./minishell

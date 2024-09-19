@@ -6,7 +6,7 @@
 /*   By: sebasari <sebasari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:34:50 by sebasari          #+#    #+#             */
-/*   Updated: 2024/09/17 11:12:25 by sebasari         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:11:33 by sebasari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ enum	e_minis
 
 typedef struct s_list
 {
-	int					n_minis;
 	void				*content;
 	enum e_minis		type;
 	int					index;
